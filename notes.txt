@@ -1,0 +1,27 @@
+Working through examples from
+
+https://regl.neocities.org/01-hello.html
+
+regl
+====
+
+Install regl using npm
+
+  npm install regl
+
+browserify
+==========
+
+Use browersify to compile all of your dependencies into a payload of JS that you can deliver in a single script tag
+
+  sudo npm install -g browersify
+
+This will give you a browserify command you can invoke starting from a file, such as main.js and will create a bundle of all the files necessary to run your project =
+
+Start by writing code that requires regl and other libs in main.jg and then you can run browserify to produce bundle.js
+
+  browersify main.js > bundle.js
+
+budo
+====
+
