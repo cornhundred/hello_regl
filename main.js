@@ -137,22 +137,28 @@ function spiral (n) {
 }
 
 function run (regl) {
-  let n = 100000
+
+  let max_nodes = 1000000
+
+  max_nodes = 2*max_nodes
+
+  let n = max_nodes
   let datasets = []
   let colorBasis
   let datasetPtr = 0
 
-  let pointRadius = 3
+  let pointRadius = 1
 
   let lastSwitchTime = 0
-  let switchInterval = 2
-  let switchDuration = 1
+  let switchInterval = 5
+  let switchDuration = 5
 
   const createDatasets = () => {
     // This is a cute little pattern that *either* creates a buffer or updates
     // the existing buffer since both the constructor and the current instance
     // can be called as a function.
-    datasets = [phyllotaxis, grid, sine, spiral].map((func, i) =>
+    // phyllotaxis, grid, sine, spiral
+    datasets = [phyllotaxis, grid].map((func, i) =>
       (datasets[i] || regl.buffer)(vectorFill(ndarray([], [n, 2]), func(n)))
     )
     // This is just a list from 1 to 0 for coloring:
@@ -165,7 +171,7 @@ function run (regl) {
   // Create nice controls:
   require('control-panel')([
     {type: 'range', min: 1, max: 10, label: 'radius', initial: pointRadius, step: 0.25},
-    {type: 'range', min: 1000, max: 200000, label: 'n', initial: n, step: 1000}
+    {type: 'range', min: 1000, max: max_nodes, label: 'n', initial: n, step: 1000}
   ], {width: 400}).on('input', (data) => {
     pointRadius = data.radius
     if (data.n !== n) {
